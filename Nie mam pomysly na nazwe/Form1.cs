@@ -47,13 +47,13 @@ namespace Nie_mam_pomysly_na_nazwe
                 {
                     if (!item.EnemyCooldown)
                     {
+                        item.EnemyCooldown = true;
+                        await Task.Delay(100);
+                        AdventurerHealthPoints--;
                         if (AdventurerHealthPoints == 0)
                         {
                             GAMEOVER();
                         }
-                        item.EnemyCooldown = true;
-                        await Task.Delay(100);
-                        AdventurerHealthPoints--;
                         if (AdventurerHealthPoints >= 0)
                         {
                             LifeBar.Value = AdventurerHealthPoints;
