@@ -16,7 +16,7 @@ namespace Nie_mam_pomysly_na_nazwe
         {
             /*Application.EnableVisualStyles();*/
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new RPG_Kapek());
+            Application.Run(new Menu());
         }
     }
 }
