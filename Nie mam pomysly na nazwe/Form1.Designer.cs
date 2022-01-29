@@ -1,7 +1,11 @@
-﻿namespace Nie_mam_pomysly_na_nazwe
+﻿using System.Windows.Forms;
+
+namespace Nie_mam_pomysly_na_nazwe
 {
     partial class RPG_Kapek
     {
+
+        
         /// <summary>
         /// Wymagana zmienna projektanta.
         /// </summary>
@@ -40,6 +44,8 @@
             this.item1PictureBox = new System.Windows.Forms.PictureBox();
             this.Adventurer = new System.Windows.Forms.PictureBox();
             this.HitboxForEnemy = new System.Windows.Forms.PictureBox();
+            this.sniperAmmoLbl = new System.Windows.Forms.Label();
+            this.noAmmoLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.item2PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.item1PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Adventurer)).BeginInit();
@@ -49,10 +55,10 @@
             // LifeBar
             // 
             this.LifeBar.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.LifeBar.Location = new System.Drawing.Point(567, 12);
+            this.LifeBar.Location = new System.Drawing.Point(552, 190);
             this.LifeBar.Maximum = 10;
             this.LifeBar.Name = "LifeBar";
-            this.LifeBar.Size = new System.Drawing.Size(160, 23);
+            this.LifeBar.Size = new System.Drawing.Size(140, 23);
             this.LifeBar.TabIndex = 0;
             this.LifeBar.Value = 10;
             // 
@@ -87,11 +93,12 @@
             // 
             this.countdownLbl.AutoSize = true;
             this.countdownLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.countdownLbl.Location = new System.Drawing.Point(581, 97);
+            this.countdownLbl.Location = new System.Drawing.Point(578, 9);
             this.countdownLbl.Name = "countdownLbl";
             this.countdownLbl.Size = new System.Drawing.Size(98, 108);
             this.countdownLbl.TabIndex = 6;
             this.countdownLbl.Text = "3";
+            this.countdownLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // countdownTimer
             // 
@@ -102,12 +109,13 @@
             // sniperCooldownPrgsbar
             // 
             this.sniperCooldownPrgsbar.ForeColor = System.Drawing.Color.Cyan;
-            this.sniperCooldownPrgsbar.Location = new System.Drawing.Point(604, 82);
+            this.sniperCooldownPrgsbar.Location = new System.Drawing.Point(586, 387);
             this.sniperCooldownPrgsbar.Name = "sniperCooldownPrgsbar";
             this.sniperCooldownPrgsbar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.sniperCooldownPrgsbar.Size = new System.Drawing.Size(75, 23);
+            this.sniperCooldownPrgsbar.Size = new System.Drawing.Size(74, 23);
             this.sniperCooldownPrgsbar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.sniperCooldownPrgsbar.TabIndex = 7;
+            this.sniperCooldownPrgsbar.Visible = false;
             // 
             // item2PictureBox
             // 
@@ -124,7 +132,7 @@
             // 
             // item1PictureBox
             // 
-            this.item1PictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.item1PictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.item1PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.item1PictureBox.Cursor = System.Windows.Forms.Cursors.No;
             this.item1PictureBox.Image = global::Nie_mam_pomysly_na_nazwe.Properties.Resources.knife;
@@ -155,12 +163,36 @@
             this.HitboxForEnemy.TabIndex = 2;
             this.HitboxForEnemy.TabStop = false;
             // 
+            // sniperAmmoLbl
+            // 
+            this.sniperAmmoLbl.BackColor = System.Drawing.Color.Transparent;
+            this.sniperAmmoLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.sniperAmmoLbl.Location = new System.Drawing.Point(141, 61);
+            this.sniperAmmoLbl.Name = "sniperAmmoLbl";
+            this.sniperAmmoLbl.Size = new System.Drawing.Size(23, 23);
+            this.sniperAmmoLbl.TabIndex = 9;
+            this.sniperAmmoLbl.Text = "6";
+            // 
+            // noAmmoLbl
+            // 
+            this.noAmmoLbl.AutoSize = true;
+            this.noAmmoLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.noAmmoLbl.ForeColor = System.Drawing.Color.Red;
+            this.noAmmoLbl.Location = new System.Drawing.Point(572, 271);
+            this.noAmmoLbl.Name = "noAmmoLbl";
+            this.noAmmoLbl.Size = new System.Drawing.Size(104, 24);
+            this.noAmmoLbl.TabIndex = 10;
+            this.noAmmoLbl.Text = "NO AMMO";
+            this.noAmmoLbl.Visible = false;
+            // 
             // RPG_Kapek
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.noAmmoLbl);
+            this.Controls.Add(this.sniperAmmoLbl);
             this.Controls.Add(this.item2PictureBox);
             this.Controls.Add(this.sniperCooldownPrgsbar);
             this.Controls.Add(this.countdownLbl);
@@ -170,7 +202,6 @@
             this.Controls.Add(this.Adventurer);
             this.Controls.Add(this.LifeBar);
             this.Controls.Add(this.HitboxForEnemy);
-            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.ForeColor = System.Drawing.SystemColors.Control;
             this.Name = "RPG_Kapek";
             this.Text = "Kapek\'s RPG";
@@ -200,6 +231,8 @@
         private System.Windows.Forms.Timer countdownTimer;
         private System.Windows.Forms.ProgressBar sniperCooldownPrgsbar;
         private System.Windows.Forms.PictureBox item2PictureBox;
+        private Label sniperAmmoLbl;
+        private Label noAmmoLbl;
     }
 }
 

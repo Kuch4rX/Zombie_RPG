@@ -17,18 +17,35 @@ namespace Nie_mam_pomysly_na_nazwe
         int MovingSpeed = 5;
         int AdventurerHealthPoints = 10;
         int sniperCooldown = 0;
+        int sniperAmmo = 6;
         string itemHolding = "knife";
         bool GameOver = false;
         Random Random = new Random();
         List<Enemy> enemies = new List<Enemy>();
+        Cursor knifeCursor = new Cursor(Properties.Resources.bowie_knife.Handle);
 
-
+        public RPG_Kapek()
+        {
+            InitializeComponent();
+            for (int i = 0; i < 20; i++) ///////////////////////////////////////////////////////////////
+            {
+                enemies.Add(GenerateEnemy());
+            }
+            LifeBar.ForeColor = Color.Red;
+            restartBtn.Hide();
+            restartBtn.Enabled = false;
+            gameOverLbl.Hide();
+        }
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
             foreach (var item in enemies)
             {
-                if (item.EnemyLook.Bounds.IntersectsWith(HitboxForEnemy.Bounds))
+                if (item.EnemyLook.Bounds.IntersectsWith(HitboxForEnemy.Bounds) && itemHolding == "knife")
+                {
+                    item.EnemyLook.Cursor = Cursors.Cross;
+                }
+                else if (itemHolding == "sniper")
                 {
                     item.EnemyLook.Cursor = Cursors.Cross;
                 }
@@ -40,10 +57,7 @@ namespace Nie_mam_pomysly_na_nazwe
             {
                 await AttackAdventurer();
             }
-            catch (Exception)
-            {
-            }
-            
+            catch (Exception) { }
         }
 
         private async Task AttackAdventurer()
@@ -119,7 +133,7 @@ namespace Nie_mam_pomysly_na_nazwe
         {
             if (GoingLeft || GoingRight || GoingUp || GoingDown)
             {
-                if (sniperCooldown != 0)
+                if (sniperCooldown != 0 && itemHolding == "sniper")
                 {
                     sniperCooldown -= 2;
                 }
@@ -144,7 +158,7 @@ namespace Nie_mam_pomysly_na_nazwe
                 }
 
             }
-            else if (sniperCooldown != 100)
+            else if (sniperCooldown != 100 && itemHolding == "sniper")
             {
                 sniperCooldown += 2;
 
@@ -153,7 +167,7 @@ namespace Nie_mam_pomysly_na_nazwe
         }
         private Enemy GenerateEnemy() ///////////////////////////////////////////////////////////////////////
         {
-            Enemy enemy = new Enemy(new Timer(), Random.Next(1, 3), GeneratePictureBox(), false, Random.Next(1, 6));
+            Enemy enemy = new Enemy(new Timer(), 2, GeneratePictureBox(), false, Random.Next(1, 6));
             return enemy;
         }
 
@@ -198,8 +212,8 @@ namespace Nie_mam_pomysly_na_nazwe
         {
 
             PictureBox enemy = (PictureBox)sender;
-
-            if (enemy.Cursor == Cursors.Cross && restartBtn.Enabled == false)
+            Enemy item = FindEnemyItem(enemy);
+            if (enemy.Cursor == Cursors.Cross && restartBtn.Enabled == false && itemHolding == "knife")
             {
                 if (Adventurer.Top > enemy.Top)
                 {
@@ -233,10 +247,73 @@ namespace Nie_mam_pomysly_na_nazwe
                         enemy.Left += 4;
                     }
                 }
-                await Task.Delay(500);
-                Enemy item = FindEnemyItem(enemy);
+                
+                if (item != null)
+                {
+                    item.HP--;
+                    if (item.HP == 1)
+                    {
+                        item.EnemyLook.BackColor = Color.Yellow;
+                    }
+                    if (item.HP == 0)
+                    {
+                        this.Controls.Remove(enemy);
+                        enemies.Remove(item);
+                    }
+                }
+            }
+            if (itemHolding == "sniper" && sniperAmmo > 0)
+            {
+                sniperAmmo--;
+                sniperAmmoLbl.Text = sniperAmmo.ToString();
+                if (Adventurer.Top > enemy.Top)
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        await Task.Delay(2);
+                        enemy.Top -= 15;
+                    }
+                }
+                if (Adventurer.Top < enemy.Top)
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        await Task.Delay(2);
+                        enemy.Top += 15;                         //Mordi spierdalaj
+                    }
+                }
+                if (Adventurer.Left > enemy.Left)
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        await Task.Delay(2);
+                        enemy.Left -= 15;
+                    }
+                }
+                if (Adventurer.Left < enemy.Left)
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        await Task.Delay(2);
+                        enemy.Left += 15;
+                    }
+                }
                 this.Controls.Remove(enemy);
                 enemies.Remove(item);
+            }
+            else if (itemHolding == "sniper")
+            {
+                noAmmoLbl.Visible = true;
+                await Task.Delay(300);
+                noAmmoLbl.Visible = false;
+                await Task.Delay(300);
+                noAmmoLbl.Visible = true;
+                await Task.Delay(300);
+                noAmmoLbl.Visible = false;
+                await Task.Delay(300);
+                noAmmoLbl.Visible = true;
+                await Task.Delay(300);
+                noAmmoLbl.Visible = false;
             }
         }
 
@@ -284,28 +361,24 @@ namespace Nie_mam_pomysly_na_nazwe
             }
         }
 
-        public RPG_Kapek()
-        {
-            InitializeComponent();
-            for (int i = 0; i < 20; i++) ///////////////////////////////////////////////////////////////
-            {
-                enemies.Add(GenerateEnemy());
-            }
-            LifeBar.ForeColor = Color.Red;
-            restartBtn.Hide();
-            restartBtn.Enabled = false;
-            gameOverLbl.Hide();
-        }
-
         private void RPG_Kapek_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.D1)
             {
                 itemHolding = "knife";
+                sniperAmmoLbl.BackColor = Color.FromArgb(30, 30, 30);
+                item1PictureBox.BackColor = Color.FromArgb(69, 69, 69);
+                item2PictureBox.BackColor = Color.FromArgb(30, 30, 30);
+                sniperCooldownPrgsbar.Visible = false;
             }
             if (e.KeyChar == (char)Keys.D2)
             {
                 itemHolding = "sniper";
+                sniperCooldown = 0;
+                sniperCooldownPrgsbar.Visible = true;
+                sniperAmmoLbl.BackColor = Color.FromArgb(69, 69, 69);
+                item1PictureBox.BackColor = Color.FromArgb(30, 30, 30);
+                item2PictureBox.BackColor = Color.FromArgb(69, 69, 69);
             }
         }
 

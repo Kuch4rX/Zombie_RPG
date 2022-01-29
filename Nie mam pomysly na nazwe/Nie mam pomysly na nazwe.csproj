@@ -99,5 +99,14 @@
   <ItemGroup>
     <None Include="Resources\knife.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bowie-knife_39338.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bowie-knife_39338.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bowie.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
