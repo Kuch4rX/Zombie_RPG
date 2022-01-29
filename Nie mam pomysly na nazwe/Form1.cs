@@ -27,7 +27,7 @@ namespace Nie_mam_pomysly_na_nazwe
         public RPG_Kapek()
         {
             InitializeComponent();
-            for (int i = 0; i < 20; i++) ///////////////////////////////////////////////////////////////
+            for (int i = 0; i < 10; i++) ///////////////////////////////////////////////////////////////
             {
                 enemies.Add(GenerateEnemy());
             }
