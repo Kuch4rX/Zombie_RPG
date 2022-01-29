@@ -93,5 +93,11 @@
   <ItemGroup>
     <None Include="Resources\42604-hourglass-not-done-icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sniper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knife.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

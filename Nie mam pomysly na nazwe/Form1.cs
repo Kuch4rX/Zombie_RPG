@@ -15,9 +15,10 @@ namespace Nie_mam_pomysly_na_nazwe
     {
         bool GoingLeft, GoingRight, GoingUp, GoingDown;
         int MovingSpeed = 5;
-        int EnemySpeed = 3;
-        bool EnemyCooldown;
-        int AdventurerHealthPoints = 5;
+        int AdventurerHealthPoints = 10;
+        int sniperCooldown = 0;
+        string itemHolding = "knife";
+        bool GameOver = false;
         Random Random = new Random();
         List<Enemy> enemies = new List<Enemy>();
 
@@ -33,10 +34,16 @@ namespace Nie_mam_pomysly_na_nazwe
                 }
                 else item.EnemyLook.Cursor = Cursors.No;
             }
-            await AttackAdventurer();
             AdventurerMovement();
             EnemyMovement();
-
+            try
+            {
+                await AttackAdventurer();
+            }
+            catch (Exception)
+            {
+            }
+            
         }
 
         private async Task AttackAdventurer()
@@ -47,25 +54,29 @@ namespace Nie_mam_pomysly_na_nazwe
                 {
                     if (!item.EnemyCooldown)
                     {
+
                         item.EnemyCooldown = true;
                         await Task.Delay(100);
-                        AdventurerHealthPoints--;
-                        if (AdventurerHealthPoints == 0)
+                        if (!GameOver)
                         {
-                            GAMEOVER();
-                        }
-                        if (AdventurerHealthPoints >= 0)
-                        {
-                            LifeBar.Value = AdventurerHealthPoints;
-                        }
-                        item.EnemyLook.Image = Properties.Resources.Klepsydra;
-                        Adventurer.BackColor = Color.Red;
-                        await Task.Delay(200);
-                        Adventurer.BackColor = Color.Gray;
-                        await Task.Delay(900);
-                        item.EnemyCooldown = false;
-                        item.EnemyLook.Image = null;
+                            AdventurerHealthPoints--;
+                            if (AdventurerHealthPoints == 0)
+                            {
+                                GAMEOVER();
+                            }
+                            if (AdventurerHealthPoints >= 0)
+                            {
+                                LifeBar.Value = AdventurerHealthPoints;
+                            }
+                            item.EnemyLook.Image = Properties.Resources.Klepsydra;
+                            Adventurer.BackColor = Color.Red;
+                            await Task.Delay(200);
+                            Adventurer.BackColor = Color.Gray;
+                            await Task.Delay(900);
+                            item.EnemyCooldown = false;
+                            item.EnemyLook.Image = null;
 
+                        }
                     }
                 }
             }
@@ -73,6 +84,7 @@ namespace Nie_mam_pomysly_na_nazwe
 
         private void GAMEOVER()
         {
+            GameOver = true;
             MovingAnimation.Stop();
             restartBtn.Enabled = true;
             restartBtn.Show();
@@ -105,9 +117,13 @@ namespace Nie_mam_pomysly_na_nazwe
 
         private void AdventurerMovement()
         {
-            foreach (var item in enemies)
+            if (GoingLeft || GoingRight || GoingUp || GoingDown)
             {
-                if (GoingLeft || GoingRight || GoingUp || GoingDown)
+                if (sniperCooldown != 0)
+                {
+                    sniperCooldown -= 2;
+                }
+                foreach (var item in enemies)
                 {
                     if (GoingLeft)
                     {
@@ -126,8 +142,14 @@ namespace Nie_mam_pomysly_na_nazwe
                         item.EnemyLook.Top -= MovingSpeed;
                     }
                 }
-                /*else ();*/
+
             }
+            else if (sniperCooldown != 100)
+            {
+                sniperCooldown += 2;
+
+            }
+            sniperCooldownPrgsbar.Value = sniperCooldown;
         }
         private Enemy GenerateEnemy() ///////////////////////////////////////////////////////////////////////
         {
@@ -142,8 +164,29 @@ namespace Nie_mam_pomysly_na_nazwe
             EnemyPictureBox.BackColor = System.Drawing.Color.Lime;
             EnemyPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             EnemyPictureBox.Cursor = System.Windows.Forms.Cursors.No;
-            int x = Random.Next(1, 3) == 1 ? Random.Next(-174, 0) : Random.Next(this.ClientSize.Width, this.ClientSize.Width + 100);
-            int y = Random.Next(1, 3) == 1 ? Random.Next(-174, 0) : Random.Next(this.ClientSize.Height, this.ClientSize.Height + 100);
+            int x = 0;
+            int y = 0;
+            int losowanie = Random.Next(1, 5);
+            switch (losowanie)
+            {
+                case 1:
+                    x = Random.Next(-174, this.ClientSize.Width); //poziomo u góry
+                    y = Random.Next(-174, -74);
+                    break;
+                case 2:
+                    x = Random.Next(0, this.ClientSize.Width + 174); //dół
+                    y = Random.Next(this.ClientSize.Height + 74, this.ClientSize.Height + 174);
+                    break;
+                case 3:
+                    x = Random.Next(-174, -74);//lewo
+                    y = Random.Next(0, this.ClientSize.Height + 174);
+                    break;
+                case 4:                                                 //pionowo
+                    x = Random.Next(this.ClientSize.Width, this.ClientSize.Width + 174);
+                    y = Random.Next(-174, this.ClientSize.Height);
+                    break;
+            }
+
             EnemyPictureBox.Location = new System.Drawing.Point(x, y);
             EnemyPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Enemy_MouseClick);
             this.Controls.Add(EnemyPictureBox);
@@ -153,7 +196,7 @@ namespace Nie_mam_pomysly_na_nazwe
 
         private async void Enemy_MouseClick(object sender, MouseEventArgs e) /////////////////////////////////////////////////////////////
         {
-            
+
             PictureBox enemy = (PictureBox)sender;
 
             if (enemy.Cursor == Cursors.Cross && restartBtn.Enabled == false)
@@ -244,7 +287,7 @@ namespace Nie_mam_pomysly_na_nazwe
         public RPG_Kapek()
         {
             InitializeComponent();
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 20; i++) ///////////////////////////////////////////////////////////////
             {
                 enemies.Add(GenerateEnemy());
             }
@@ -252,6 +295,18 @@ namespace Nie_mam_pomysly_na_nazwe
             restartBtn.Hide();
             restartBtn.Enabled = false;
             gameOverLbl.Hide();
+        }
+
+        private void RPG_Kapek_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.D1)
+            {
+                itemHolding = "knife";
+            }
+            if (e.KeyChar == (char)Keys.D2)
+            {
+                itemHolding = "sniper";
+            }
         }
 
         private async void countdownTimer_Tick(object sender, EventArgs e)

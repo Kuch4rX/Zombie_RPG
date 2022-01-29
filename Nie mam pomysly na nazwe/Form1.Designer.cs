@@ -30,65 +30,36 @@
         {
             this.components = new System.ComponentModel.Container();
             this.LifeBar = new System.Windows.Forms.ProgressBar();
-            this.Adventurer = new System.Windows.Forms.PictureBox();
-            this.HitboxForEnemy = new System.Windows.Forms.PictureBox();
             this.MovingAnimation = new System.Windows.Forms.Timer(this.components);
-            this.Enemy = new System.Windows.Forms.PictureBox();
             this.restartBtn = new System.Windows.Forms.Button();
             this.gameOverLbl = new System.Windows.Forms.Label();
             this.countdownLbl = new System.Windows.Forms.Label();
             this.countdownTimer = new System.Windows.Forms.Timer(this.components);
-            this.sniperRightToLeftCooldownPrgsbar = new System.Windows.Forms.ProgressBar();
+            this.sniperCooldownPrgsbar = new System.Windows.Forms.ProgressBar();
+            this.item2PictureBox = new System.Windows.Forms.PictureBox();
+            this.item1PictureBox = new System.Windows.Forms.PictureBox();
+            this.Adventurer = new System.Windows.Forms.PictureBox();
+            this.HitboxForEnemy = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.item2PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.item1PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Adventurer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HitboxForEnemy)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Enemy)).BeginInit();
             this.SuspendLayout();
             // 
             // LifeBar
             // 
             this.LifeBar.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.LifeBar.Location = new System.Drawing.Point(587, 278);
-            this.LifeBar.Maximum = 5;
+            this.LifeBar.Location = new System.Drawing.Point(567, 12);
+            this.LifeBar.Maximum = 10;
             this.LifeBar.Name = "LifeBar";
-            this.LifeBar.Size = new System.Drawing.Size(72, 23);
+            this.LifeBar.Size = new System.Drawing.Size(160, 23);
             this.LifeBar.TabIndex = 0;
-            this.LifeBar.Value = 5;
-            // 
-            // Adventurer
-            // 
-            this.Adventurer.BackColor = System.Drawing.Color.Gray;
-            this.Adventurer.Location = new System.Drawing.Point(586, 307);
-            this.Adventurer.Name = "Adventurer";
-            this.Adventurer.Size = new System.Drawing.Size(74, 74);
-            this.Adventurer.TabIndex = 1;
-            this.Adventurer.TabStop = false;
-            // 
-            // HitboxForEnemy
-            // 
-            this.HitboxForEnemy.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.HitboxForEnemy.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.HitboxForEnemy.Location = new System.Drawing.Point(498, 219);
-            this.HitboxForEnemy.Name = "HitboxForEnemy";
-            this.HitboxForEnemy.Size = new System.Drawing.Size(250, 250);
-            this.HitboxForEnemy.TabIndex = 2;
-            this.HitboxForEnemy.TabStop = false;
+            this.LifeBar.Value = 10;
             // 
             // MovingAnimation
             // 
             this.MovingAnimation.Interval = 5;
             this.MovingAnimation.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // Enemy
-            // 
-            this.Enemy.BackColor = System.Drawing.Color.Lime;
-            this.Enemy.Cursor = System.Windows.Forms.Cursors.No;
-            this.Enemy.Location = new System.Drawing.Point(1178, 31);
-            this.Enemy.Name = "Enemy";
-            this.Enemy.Size = new System.Drawing.Size(74, 74);
-            this.Enemy.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.Enemy.TabIndex = 3;
-            this.Enemy.TabStop = false;
-            this.Enemy.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Enemy_MouseClick);
             // 
             // restartBtn
             // 
@@ -128,16 +99,61 @@
             this.countdownTimer.Interval = 1000;
             this.countdownTimer.Tick += new System.EventHandler(this.countdownTimer_Tick);
             // 
-            // sniperRightToLeftCooldownPrgsbar
+            // sniperCooldownPrgsbar
             // 
-            this.sniperRightToLeftCooldownPrgsbar.ForeColor = System.Drawing.Color.Cyan;
-            this.sniperRightToLeftCooldownPrgsbar.Location = new System.Drawing.Point(1072, 31);
-            this.sniperRightToLeftCooldownPrgsbar.Name = "sniperRightToLeftCooldownPrgsbar";
-            this.sniperRightToLeftCooldownPrgsbar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.sniperRightToLeftCooldownPrgsbar.Size = new System.Drawing.Size(100, 23);
-            this.sniperRightToLeftCooldownPrgsbar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.sniperRightToLeftCooldownPrgsbar.TabIndex = 7;
-            this.sniperRightToLeftCooldownPrgsbar.Value = 30;
+            this.sniperCooldownPrgsbar.ForeColor = System.Drawing.Color.Cyan;
+            this.sniperCooldownPrgsbar.Location = new System.Drawing.Point(604, 82);
+            this.sniperCooldownPrgsbar.Name = "sniperCooldownPrgsbar";
+            this.sniperCooldownPrgsbar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.sniperCooldownPrgsbar.Size = new System.Drawing.Size(75, 23);
+            this.sniperCooldownPrgsbar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.sniperCooldownPrgsbar.TabIndex = 7;
+            // 
+            // item2PictureBox
+            // 
+            this.item2PictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.item2PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.item2PictureBox.Cursor = System.Windows.Forms.Cursors.No;
+            this.item2PictureBox.Image = global::Nie_mam_pomysly_na_nazwe.Properties.Resources.sniper;
+            this.item2PictureBox.Location = new System.Drawing.Point(92, 12);
+            this.item2PictureBox.Name = "item2PictureBox";
+            this.item2PictureBox.Size = new System.Drawing.Size(74, 74);
+            this.item2PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.item2PictureBox.TabIndex = 8;
+            this.item2PictureBox.TabStop = false;
+            // 
+            // item1PictureBox
+            // 
+            this.item1PictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.item1PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.item1PictureBox.Cursor = System.Windows.Forms.Cursors.No;
+            this.item1PictureBox.Image = global::Nie_mam_pomysly_na_nazwe.Properties.Resources.knife;
+            this.item1PictureBox.Location = new System.Drawing.Point(12, 12);
+            this.item1PictureBox.Name = "item1PictureBox";
+            this.item1PictureBox.Size = new System.Drawing.Size(74, 74);
+            this.item1PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.item1PictureBox.TabIndex = 3;
+            this.item1PictureBox.TabStop = false;
+            this.item1PictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Enemy_MouseClick);
+            // 
+            // Adventurer
+            // 
+            this.Adventurer.BackColor = System.Drawing.Color.Gray;
+            this.Adventurer.Location = new System.Drawing.Point(586, 307);
+            this.Adventurer.Name = "Adventurer";
+            this.Adventurer.Size = new System.Drawing.Size(74, 74);
+            this.Adventurer.TabIndex = 1;
+            this.Adventurer.TabStop = false;
+            // 
+            // HitboxForEnemy
+            // 
+            this.HitboxForEnemy.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.HitboxForEnemy.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.HitboxForEnemy.Location = new System.Drawing.Point(498, 219);
+            this.HitboxForEnemy.Name = "HitboxForEnemy";
+            this.HitboxForEnemy.Size = new System.Drawing.Size(250, 250);
+            this.HitboxForEnemy.TabIndex = 2;
+            this.HitboxForEnemy.TabStop = false;
             // 
             // RPG_Kapek
             // 
@@ -145,11 +161,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.sniperRightToLeftCooldownPrgsbar);
+            this.Controls.Add(this.item2PictureBox);
+            this.Controls.Add(this.sniperCooldownPrgsbar);
             this.Controls.Add(this.countdownLbl);
             this.Controls.Add(this.gameOverLbl);
             this.Controls.Add(this.restartBtn);
-            this.Controls.Add(this.Enemy);
+            this.Controls.Add(this.item1PictureBox);
             this.Controls.Add(this.Adventurer);
             this.Controls.Add(this.LifeBar);
             this.Controls.Add(this.HitboxForEnemy);
@@ -159,10 +176,12 @@
             this.Text = "Kapek\'s RPG";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RPG_Kapek_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RPG_Kapek_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RPG_Kapek_KeyPress);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RPG_Kapek_KeyUp);
+            ((System.ComponentModel.ISupportInitialize)(this.item2PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.item1PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Adventurer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HitboxForEnemy)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Enemy)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -174,12 +193,13 @@
         private System.Windows.Forms.PictureBox Adventurer;
         private System.Windows.Forms.PictureBox HitboxForEnemy;
         private System.Windows.Forms.Timer MovingAnimation;
-        private System.Windows.Forms.PictureBox Enemy;
+        private System.Windows.Forms.PictureBox item1PictureBox;
         private System.Windows.Forms.Button restartBtn;
         private System.Windows.Forms.Label gameOverLbl;
         private System.Windows.Forms.Label countdownLbl;
         private System.Windows.Forms.Timer countdownTimer;
-        private System.Windows.Forms.ProgressBar sniperRightToLeftCooldownPrgsbar;
+        private System.Windows.Forms.ProgressBar sniperCooldownPrgsbar;
+        private System.Windows.Forms.PictureBox item2PictureBox;
     }
 }
 
