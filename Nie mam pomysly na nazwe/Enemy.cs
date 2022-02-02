@@ -14,14 +14,16 @@ namespace Nie_mam_pomysly_na_nazwe
         public PictureBox EnemyLook;
         public bool EnemyCooldown;
         public int Speed;
+        public bool Stunned;
 
-        public Enemy(Timer cooldown, int hP, PictureBox enemyLook, bool enemyCooldown, int speed)
+        public Enemy(Timer cooldown, int hP, PictureBox enemyLook, bool enemyCooldown, int speed, bool stunned)
         {
             Cooldown = cooldown;
             HP = hP;
             EnemyLook = enemyLook;
             EnemyCooldown = enemyCooldown;
             Speed = speed;
+            Stunned = stunned;
         }
     }
 }

@@ -46,15 +46,19 @@ namespace Nie_mam_pomysly_na_nazwe
             this.HitboxForEnemy = new System.Windows.Forms.PictureBox();
             this.sniperAmmoLbl = new System.Windows.Forms.Label();
             this.noAmmoLbl = new System.Windows.Forms.Label();
+            this.didYouHitLbl = new System.Windows.Forms.Label();
+            this.item3PictureBox = new System.Windows.Forms.PictureBox();
+            this.trapsAmountLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.item2PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.item1PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Adventurer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HitboxForEnemy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.item3PictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // LifeBar
             // 
-            this.LifeBar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.LifeBar.ForeColor = System.Drawing.Color.Lime;
             this.LifeBar.Location = new System.Drawing.Point(552, 190);
             this.LifeBar.Maximum = 10;
             this.LifeBar.Name = "LifeBar";
@@ -155,7 +159,6 @@ namespace Nie_mam_pomysly_na_nazwe
             // 
             // HitboxForEnemy
             // 
-            this.HitboxForEnemy.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.HitboxForEnemy.Cursor = System.Windows.Forms.Cursors.Cross;
             this.HitboxForEnemy.Location = new System.Drawing.Point(498, 219);
             this.HitboxForEnemy.Name = "HitboxForEnemy";
@@ -185,12 +188,50 @@ namespace Nie_mam_pomysly_na_nazwe
             this.noAmmoLbl.Text = "NO AMMO";
             this.noAmmoLbl.Visible = false;
             // 
+            // didYouHitLbl
+            // 
+            this.didYouHitLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.didYouHitLbl.ForeColor = System.Drawing.Color.Lime;
+            this.didYouHitLbl.Location = new System.Drawing.Point(498, 71);
+            this.didYouHitLbl.Name = "didYouHitLbl";
+            this.didYouHitLbl.Size = new System.Drawing.Size(250, 46);
+            this.didYouHitLbl.TabIndex = 11;
+            this.didYouHitLbl.Text = "ENEMY HAS BEEN SHOT";
+            this.didYouHitLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.didYouHitLbl.Visible = false;
+            // 
+            // item3PictureBox
+            // 
+            this.item3PictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.item3PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.item3PictureBox.Cursor = System.Windows.Forms.Cursors.No;
+            this.item3PictureBox.Image = global::Nie_mam_pomysly_na_nazwe.Properties.Resources.Trap;
+            this.item3PictureBox.Location = new System.Drawing.Point(172, 12);
+            this.item3PictureBox.Name = "item3PictureBox";
+            this.item3PictureBox.Size = new System.Drawing.Size(74, 74);
+            this.item3PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.item3PictureBox.TabIndex = 12;
+            this.item3PictureBox.TabStop = false;
+            // 
+            // trapsAmountLbl
+            // 
+            this.trapsAmountLbl.BackColor = System.Drawing.Color.Transparent;
+            this.trapsAmountLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.trapsAmountLbl.Location = new System.Drawing.Point(224, 61);
+            this.trapsAmountLbl.Name = "trapsAmountLbl";
+            this.trapsAmountLbl.Size = new System.Drawing.Size(20, 24);
+            this.trapsAmountLbl.TabIndex = 13;
+            this.trapsAmountLbl.Text = "2";
+            // 
             // RPG_Kapek
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.trapsAmountLbl);
+            this.Controls.Add(this.item3PictureBox);
+            this.Controls.Add(this.didYouHitLbl);
             this.Controls.Add(this.noAmmoLbl);
             this.Controls.Add(this.sniperAmmoLbl);
             this.Controls.Add(this.item2PictureBox);
@@ -209,10 +250,12 @@ namespace Nie_mam_pomysly_na_nazwe
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RPG_Kapek_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RPG_Kapek_KeyPress);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RPG_Kapek_KeyUp);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RPG_Kapek_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.item2PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.item1PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Adventurer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HitboxForEnemy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.item3PictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,6 +276,9 @@ namespace Nie_mam_pomysly_na_nazwe
         private System.Windows.Forms.PictureBox item2PictureBox;
         private Label sniperAmmoLbl;
         private Label noAmmoLbl;
+        private Label didYouHitLbl;
+        private PictureBox item3PictureBox;
+        private Label trapsAmountLbl;
     }
 }
 
