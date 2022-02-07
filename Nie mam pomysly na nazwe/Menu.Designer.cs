@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.startGameBtn = new System.Windows.Forms.Button();
             this.optionsBtn = new System.Windows.Forms.Button();
             this.exitGameBtn = new System.Windows.Forms.Button();
+            this.howToPlayBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -64,7 +66,7 @@
             this.startGameBtn.ForeColor = System.Drawing.SystemColors.Control;
             this.startGameBtn.Location = new System.Drawing.Point(461, 185);
             this.startGameBtn.Name = "startGameBtn";
-            this.startGameBtn.Size = new System.Drawing.Size(349, 99);
+            this.startGameBtn.Size = new System.Drawing.Size(369, 99);
             this.startGameBtn.TabIndex = 2;
             this.startGameBtn.Text = "START GAME";
             this.startGameBtn.UseVisualStyleBackColor = false;
@@ -75,9 +77,9 @@
             this.optionsBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.optionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.optionsBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.optionsBtn.Location = new System.Drawing.Point(461, 365);
+            this.optionsBtn.Location = new System.Drawing.Point(461, 306);
             this.optionsBtn.Name = "optionsBtn";
-            this.optionsBtn.Size = new System.Drawing.Size(349, 99);
+            this.optionsBtn.Size = new System.Drawing.Size(369, 99);
             this.optionsBtn.TabIndex = 3;
             this.optionsBtn.Text = "OPTIONS";
             this.optionsBtn.UseVisualStyleBackColor = false;
@@ -89,11 +91,24 @@
             this.exitGameBtn.ForeColor = System.Drawing.SystemColors.Control;
             this.exitGameBtn.Location = new System.Drawing.Point(461, 553);
             this.exitGameBtn.Name = "exitGameBtn";
-            this.exitGameBtn.Size = new System.Drawing.Size(349, 99);
+            this.exitGameBtn.Size = new System.Drawing.Size(369, 99);
             this.exitGameBtn.TabIndex = 4;
             this.exitGameBtn.Text = "EXIT GAME";
             this.exitGameBtn.UseVisualStyleBackColor = false;
             this.exitGameBtn.Click += new System.EventHandler(this.exitGameBtn_Click);
+            // 
+            // howToPlayBtn
+            // 
+            this.howToPlayBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.howToPlayBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.howToPlayBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.howToPlayBtn.Location = new System.Drawing.Point(461, 429);
+            this.howToPlayBtn.Name = "howToPlayBtn";
+            this.howToPlayBtn.Size = new System.Drawing.Size(369, 99);
+            this.howToPlayBtn.TabIndex = 5;
+            this.howToPlayBtn.Text = "HOW TO PLAY";
+            this.howToPlayBtn.UseVisualStyleBackColor = false;
+            this.howToPlayBtn.Click += new System.EventHandler(this.howToPlayBtn_Click);
             // 
             // Menu
             // 
@@ -101,11 +116,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.howToPlayBtn);
             this.Controls.Add(this.exitGameBtn);
             this.Controls.Add(this.optionsBtn);
             this.Controls.Add(this.startGameBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Menu";
             this.Text = "Menu";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Menu_FormClosing);
@@ -121,5 +138,6 @@
         private System.Windows.Forms.Button startGameBtn;
         private System.Windows.Forms.Button optionsBtn;
         private System.Windows.Forms.Button exitGameBtn;
+        private System.Windows.Forms.Button howToPlayBtn;
     }
 }

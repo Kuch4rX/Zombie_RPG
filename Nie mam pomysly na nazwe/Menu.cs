@@ -33,5 +33,12 @@ namespace Nie_mam_pomysly_na_nazwe
         {
             Application.Exit();
         }
+
+        private void howToPlayBtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form gameStartForm = new HowToPlayMenu();
+            gameStartForm.Show();
+        }
     }
 }

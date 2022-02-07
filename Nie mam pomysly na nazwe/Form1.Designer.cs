@@ -33,6 +33,7 @@ namespace Nie_mam_pomysly_na_nazwe
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RPG_Kapek));
             this.LifeBar = new System.Windows.Forms.ProgressBar();
             this.MovingAnimation = new System.Windows.Forms.Timer(this.components);
             this.restartBtn = new System.Windows.Forms.Button();
@@ -49,6 +50,7 @@ namespace Nie_mam_pomysly_na_nazwe
             this.didYouHitLbl = new System.Windows.Forms.Label();
             this.item3PictureBox = new System.Windows.Forms.PictureBox();
             this.trapsAmountLbl = new System.Windows.Forms.Label();
+            this.Spawning = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.item2PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.item1PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Adventurer)).BeginInit();
@@ -139,7 +141,7 @@ namespace Nie_mam_pomysly_na_nazwe
             this.item1PictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
             this.item1PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.item1PictureBox.Cursor = System.Windows.Forms.Cursors.No;
-            this.item1PictureBox.Image = global::Nie_mam_pomysly_na_nazwe.Properties.Resources.knife;
+            this.item1PictureBox.Image = global::Nie_mam_pomysly_na_nazwe.Properties.Resources.Katana;
             this.item1PictureBox.Location = new System.Drawing.Point(12, 12);
             this.item1PictureBox.Name = "item1PictureBox";
             this.item1PictureBox.Size = new System.Drawing.Size(74, 74);
@@ -150,21 +152,24 @@ namespace Nie_mam_pomysly_na_nazwe
             // 
             // Adventurer
             // 
-            this.Adventurer.BackColor = System.Drawing.Color.Gray;
+            this.Adventurer.BackColor = System.Drawing.Color.Transparent;
+            this.Adventurer.Image = global::Nie_mam_pomysly_na_nazwe.Properties.Resources.MyHoboDown;
             this.Adventurer.Location = new System.Drawing.Point(586, 307);
             this.Adventurer.Name = "Adventurer";
             this.Adventurer.Size = new System.Drawing.Size(74, 74);
+            this.Adventurer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Adventurer.TabIndex = 1;
             this.Adventurer.TabStop = false;
             // 
             // HitboxForEnemy
             // 
             this.HitboxForEnemy.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.HitboxForEnemy.Location = new System.Drawing.Point(498, 219);
+            this.HitboxForEnemy.Location = new System.Drawing.Point(488, 209);
             this.HitboxForEnemy.Name = "HitboxForEnemy";
-            this.HitboxForEnemy.Size = new System.Drawing.Size(250, 250);
+            this.HitboxForEnemy.Size = new System.Drawing.Size(270, 270);
             this.HitboxForEnemy.TabIndex = 2;
             this.HitboxForEnemy.TabStop = false;
+            this.HitboxForEnemy.Click += new System.EventHandler(this.HitboxForEnemy_Click);
             // 
             // sniperAmmoLbl
             // 
@@ -223,6 +228,11 @@ namespace Nie_mam_pomysly_na_nazwe
             this.trapsAmountLbl.TabIndex = 13;
             this.trapsAmountLbl.Text = "2";
             // 
+            // Spawning
+            // 
+            this.Spawning.Interval = 2500;
+            this.Spawning.Tick += new System.EventHandler(this.Spawning_Tick);
+            // 
             // RPG_Kapek
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -244,8 +254,9 @@ namespace Nie_mam_pomysly_na_nazwe
             this.Controls.Add(this.LifeBar);
             this.Controls.Add(this.HitboxForEnemy);
             this.ForeColor = System.Drawing.SystemColors.Control;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RPG_Kapek";
-            this.Text = "Kapek\'s RPG";
+            this.Text = "Hobo Simulator";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RPG_Kapek_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RPG_Kapek_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RPG_Kapek_KeyPress);
@@ -279,6 +290,7 @@ namespace Nie_mam_pomysly_na_nazwe
         private Label didYouHitLbl;
         private PictureBox item3PictureBox;
         private Label trapsAmountLbl;
+        private Timer Spawning;
     }
 }
 

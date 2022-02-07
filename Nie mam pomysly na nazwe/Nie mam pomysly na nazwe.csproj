@@ -53,6 +53,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HowToPlayMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HowToPlayMenu.Designer.cs">
+      <DependentUpon>HowToPlayMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +70,9 @@
     <Compile Include="Trap.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HowToPlayMenu.resx">
+      <DependentUpon>HowToPlayMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
@@ -95,9 +104,6 @@
     <None Include="Resources\42604-hourglass-not-done-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\sniper.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\knife.png" />
   </ItemGroup>
   <ItemGroup>
@@ -110,7 +116,46 @@
     <None Include="Resources\bowie.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\deciduous-tree-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\evergreen-tree-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MyHoboUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MyHoboLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MyHoboDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MyHoboRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Katana-Blood.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Katana.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sniper.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Trap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MyZombieDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MyZombieLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MyZombieUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MyZombieRight.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

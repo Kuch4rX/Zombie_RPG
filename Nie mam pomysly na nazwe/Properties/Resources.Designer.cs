@@ -83,6 +83,46 @@ namespace Nie_mam_pomysly_na_nazwe.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap deciduous_tree_icon {
+            get {
+                object obj = ResourceManager.GetObject("deciduous_tree_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap evergreen_tree_icon {
+            get {
+                object obj = ResourceManager.GetObject("evergreen_tree_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Katana {
+            get {
+                object obj = ResourceManager.GetObject("Katana", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Katana_Blood {
+            get {
+                object obj = ResourceManager.GetObject("Katana_Blood", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Klepsydra {
             get {
                 object obj = ResourceManager.GetObject("Klepsydra", resourceCulture);
@@ -93,9 +133,79 @@ namespace Nie_mam_pomysly_na_nazwe.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap knife {
+        internal static System.Drawing.Bitmap MyHoboDown {
             get {
-                object obj = ResourceManager.GetObject("knife", resourceCulture);
+                object obj = ResourceManager.GetObject("MyHoboDown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MyHoboLeft {
+            get {
+                object obj = ResourceManager.GetObject("MyHoboLeft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MyHoboRight {
+            get {
+                object obj = ResourceManager.GetObject("MyHoboRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MyHoboUp {
+            get {
+                object obj = ResourceManager.GetObject("MyHoboUp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MyZombieDown {
+            get {
+                object obj = ResourceManager.GetObject("MyZombieDown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MyZombieLeft {
+            get {
+                object obj = ResourceManager.GetObject("MyZombieLeft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MyZombieRight {
+            get {
+                object obj = ResourceManager.GetObject("MyZombieRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MyZombieUp {
+            get {
+                object obj = ResourceManager.GetObject("MyZombieUp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

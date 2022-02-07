@@ -14,7 +14,7 @@ namespace Nie_mam_pomysly_na_nazwe
     public partial class RPG_Kapek : Form
     {
         bool GoingLeft, GoingRight, GoingUp, GoingDown;
-        int MovingSpeed = 5;
+        int MovingSpeed = 10;
         int AdventurerHealthPoints = 10;
         int sniperCooldown = 0;
         int sniperAmmo = 500;
@@ -42,6 +42,49 @@ namespace Nie_mam_pomysly_na_nazwe
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
+            CursorLook();
+            AdventurerMovement();
+            EnemyMovement();
+            DidEnemyFallInTrap();
+            try
+            {
+
+                await AttackAdventurer();
+            }
+            catch (Exception) { }
+        }
+
+        private void DidEnemyFallInTrap()
+        {
+          
+            Trap trapDoUsuniecia = new Trap();
+            foreach (var item in enemies)
+            {
+                foreach (var item2 in traps)
+                {
+                    if (item.EnemyLook.Bounds.IntersectsWith(item2.trapLook.Bounds))
+                    {
+                        if (!item.Stunned)
+                        {
+                            item.Stunned = true;
+                            item.HP--;
+                            item.EnemyLook.Image = Properties.Resources.Trap;
+                            trapDoUsuniecia = item2;
+                        }
+                    }
+                }
+                if (trapDoUsuniecia != null)
+                {
+                    this.Controls.Remove(trapDoUsuniecia.trapLook);
+                    traps.Remove(trapDoUsuniecia);
+                    trapDoUsuniecia = null;
+                }
+            }
+
+        }
+
+        private void CursorLook()
+        {
             foreach (var item in enemies)
             {
                 if (item.EnemyLook.Bounds.IntersectsWith(HitboxForEnemy.Bounds) && itemHolding == "knife")
@@ -58,13 +101,6 @@ namespace Nie_mam_pomysly_na_nazwe
                 }
                 else item.EnemyLook.Cursor = Cursors.No;
             }
-            AdventurerMovement();
-            EnemyMovement();
-            try
-            {
-                await AttackAdventurer();
-            }
-            catch (Exception) { }
         }
 
         private async Task AttackAdventurer()
@@ -83,7 +119,6 @@ namespace Nie_mam_pomysly_na_nazwe
                             AdventurerHealthPoints--;
                             greenColor -= 25;
                             redColor += 25;
-                            
                             if (AdventurerHealthPoints == 0)
                             {
                                 GAMEOVER();
@@ -96,7 +131,7 @@ namespace Nie_mam_pomysly_na_nazwe
                             item.EnemyLook.Image = Properties.Resources.Klepsydra;
                             Adventurer.BackColor = Color.Red;
                             await Task.Delay(200);
-                            Adventurer.BackColor = Color.Gray;
+                            Adventurer.BackColor = Color.Transparent;
                             await Task.Delay(900);
                             item.EnemyCooldown = false;
                             item.EnemyLook.Image = null;
@@ -118,39 +153,56 @@ namespace Nie_mam_pomysly_na_nazwe
 
         private void EnemyMovement()
         {
-
+            int x = 0;
             foreach (var item in enemies)
             {
-                foreach (var item2 in traps)
-                {
-                    if (item.EnemyLook.Bounds.IntersectsWith(item2.trapLook.Bounds))
-                    {
-                        item.Stunned = true;
-
-                        item.EnemyLook.Image = Properties.Resources.Trap;
-                    }
-                }
-
+                item.EnemyLook.BackColor = Color.Transparent;
                 if (!item.Stunned)
                 {
                     if (Adventurer.Top > item.EnemyLook.Top)
                     {
-                        item.EnemyLook.Top += Random.Next(1, 7);/*item.Speed;*/
+                        item.EnemyLook.Top += item.Speed;
                     }
                     if (Adventurer.Top < item.EnemyLook.Top)
                     {
-                        item.EnemyLook.Top -= Random.Next(1, 7);/*item.Speed;*/
+                        item.EnemyLook.Top -= item.Speed;
                     }
                     if (Adventurer.Left > item.EnemyLook.Left)
                     {
-                        item.EnemyLook.Left += Random.Next(1, 7);/*item.Speed;*/
+                        item.EnemyLook.Left += item.Speed;
+                        item.EnemyLook.Image = Properties.Resources.MyZombieRight;
                     }
                     if (Adventurer.Left < item.EnemyLook.Left)
                     {
-                        item.EnemyLook.Left -= Random.Next(1, 7);/*item.Speed;*/
+                        item.EnemyLook.Left -= item.Speed;
+                        item.EnemyLook.Image = Properties.Resources.MyZombieLeft;
+                    }
+                    x = Adventurer.Left - item.EnemyLook.Left;
+                    if (x < 220 && x > -220)
+                    {
+                        if (Adventurer.Top > item.EnemyLook.Top)
+                        {
+                            item.EnemyLook.Image = Properties.Resources.MyZombieDown;
+                        }
+                        if (Adventurer.Top < item.EnemyLook.Top)
+                        {
+                            item.EnemyLook.Image = Properties.Resources.MyZombieUp;
+                        }
                     }
                 }
             }
+        }
+
+        private Trap FindTrapItem(PictureBox trapItem)
+        {
+            foreach (var item2 in traps)
+            {
+                if (item2.trapLook == trapItem)
+                {
+                    return item2;
+                }
+            }
+            return null;
         }
 
         private void AdventurerMovement()
@@ -199,6 +251,43 @@ namespace Nie_mam_pomysly_na_nazwe
                         item.trapLook.Top -= MovingSpeed;
                     }
                 }
+                if (GoingLeft)
+                {
+                    Adventurer.Image = Properties.Resources.MyHoboLeft;
+
+                }
+                if (GoingRight)
+                {
+                    Adventurer.Image = Properties.Resources.MyHoboRight;
+
+                }
+                if (GoingUp)
+                {
+                    Adventurer.Image = Properties.Resources.MyHoboUp;
+
+                }
+                if (GoingDown)
+                {
+                    Adventurer.Image = Properties.Resources.MyHoboDown;
+
+                }
+                if (GoingLeft && GoingUp)
+                {
+                    Adventurer.Image = Properties.Resources.MyHoboLeft;
+                }
+                if (GoingRight && GoingDown)
+                {
+                    Adventurer.Image = Properties.Resources.MyHoboRight;
+                }
+                if (GoingRight && GoingUp)
+                {
+                    Adventurer.Image = Properties.Resources.MyHoboRight;
+                }
+                if (GoingLeft && GoingDown)
+                {
+                    Adventurer.Image = Properties.Resources.MyHoboLeft;
+
+                }
             }
             else if (sniperCooldown != 100 && itemHolding == "sniper")
             {
@@ -219,17 +308,17 @@ namespace Nie_mam_pomysly_na_nazwe
             EnemyPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             if (itemHolding == "trap")
             {
-                
+
                 EnemyPictureBox.Image = Properties.Resources.Trap;
                 EnemyPictureBox.BackColor = System.Drawing.Color.Transparent;
                 EnemyPictureBox.Location = new System.Drawing.Point(586, 307);
             }
             else
             {
-                EnemyPictureBox.BackColor = System.Drawing.Color.Lime;
-                EnemyPictureBox.Cursor = System.Windows.Forms.Cursors.No;
                 int x = 0;
                 int y = 0;
+                EnemyPictureBox.BackColor = System.Drawing.Color.Lime;
+                EnemyPictureBox.Cursor = System.Windows.Forms.Cursors.No;
                 int losowanie = Random.Next(1, 5);
                 switch (losowanie)
                 {
@@ -267,39 +356,48 @@ namespace Nie_mam_pomysly_na_nazwe
             Enemy item = FindEnemyItem(enemy);
             if (enemy.Cursor == Cursors.Cross && restartBtn.Enabled == false && itemHolding == "knife")
             {
+                item1PictureBox.Image = Properties.Resources.Katana_Blood;
                 if (!item.Stunned)
                 {
                     if (Adventurer.Top > enemy.Top)
                     {
+                        item.Stunned = true;
                         for (int i = 0; i < 10; i++)
                         {
                             await Task.Delay(2);
                             enemy.Top -= 4;
                         }
+                        item.Stunned = false;
                     }
                     if (Adventurer.Top < enemy.Top)
                     {
+                        item.Stunned = true;
                         for (int i = 0; i < 10; i++)
                         {
                             await Task.Delay(2);
                             enemy.Top += 4;                         //Mordi spierdalaj
                         }
+                        item.Stunned = false;
                     }
                     if (Adventurer.Left > enemy.Left)
                     {
+                        item.Stunned = true;
                         for (int i = 0; i < 10; i++)
                         {
                             await Task.Delay(2);
                             enemy.Left -= 4;
                         }
+                        item.Stunned = false;
                     }
                     if (Adventurer.Left < enemy.Left)
                     {
+                        item.Stunned = true;
                         for (int i = 0; i < 10; i++)
                         {
                             await Task.Delay(2);
                             enemy.Left += 4;
                         }
+                        item.Stunned = false;
                     }
                 }
 
@@ -327,7 +425,7 @@ namespace Nie_mam_pomysly_na_nazwe
                 {
                     didYouHitLbl.Visible = true;
                     didYouHitLbl.ForeColor = Color.Green;
-                    didYouHitLbl.Text = "ENEME HAS BEEN SHOT";
+                    didYouHitLbl.Text = "ENEMY HAS BEEN SHOT";
                     await SniperHit(enemy, item);
                     await Task.Delay(1500);
                     didYouHitLbl.Visible = false;
@@ -351,7 +449,7 @@ namespace Nie_mam_pomysly_na_nazwe
                     {
                         didYouHitLbl.Visible = true;
                         didYouHitLbl.ForeColor = Color.Green;
-                        didYouHitLbl.Text = "ENEME HAS BEEN SHOT";
+                        didYouHitLbl.Text = "ENEMY HAS BEEN SHOT";
                         await SniperHit(enemy, item);
                         await Task.Delay(1500);
                         didYouHitLbl.Visible = false;
@@ -360,7 +458,7 @@ namespace Nie_mam_pomysly_na_nazwe
                     {
                         didYouHitLbl.Visible = true;
                         didYouHitLbl.ForeColor = Color.Red;
-                        didYouHitLbl.Text = "SHOT MISSED";
+                        didYouHitLbl.Text = "YOU'VE MISSED";
                         await Task.Delay(1500);
                         didYouHitLbl.Visible = false;
                     }
@@ -380,12 +478,12 @@ namespace Nie_mam_pomysly_na_nazwe
                 await Task.Delay(300);
                 noAmmoLbl.Visible = false;
             }
+            sniperCooldown = 0;
         }
 
         private async Task SniperHit(PictureBox enemy, Enemy item)
         {
             item.EnemyLook.BackColor = Color.Red;
-            sniperCooldown = 0;
             if (!item.Stunned)
             {
                 if (Adventurer.Top > enemy.Top)
@@ -504,6 +602,60 @@ namespace Nie_mam_pomysly_na_nazwe
             }
         }
 
+        private void HitboxForEnemy_Click(object sender, EventArgs e)
+        {
+            if (itemHolding == "trap" && MovingAnimation.Enabled == true && trapsCount > 0)
+            {
+                trapsCount--;
+                trapsAmountLbl.Text = trapsCount.ToString();
+                Trap trap = new Trap(GeneratePictureBox(), false);
+                traps.Add(trap);
+            }
+        }
+
+        private void Spawning_Tick(object sender, EventArgs e)
+        {
+            int howManyNeed = 0;
+            foreach (var item in enemies)
+            {
+                if (item.EnemyLook.Left < -200 || item.EnemyLook.Top < -200 || item.EnemyLook.Left > 1480 || item.EnemyLook.Top > 920)
+                {
+                    int x = 0;
+                    int y = 0;
+                    int losowanie = Random.Next(1, 5);
+                    switch (losowanie)
+                    {
+                        case 1:
+                            x = Random.Next(-274, this.ClientSize.Width);       //góra
+                            y = Random.Next(-274, -174);
+                            break;
+                        case 2:
+                            x = Random.Next(0, this.ClientSize.Width + 274);    //dół
+                            y = Random.Next(this.ClientSize.Height + 174, this.ClientSize.Height + 274);
+                            break;
+                        case 3:
+                            x = Random.Next(-274, -174);                         //lewo
+                            y = Random.Next(0, this.ClientSize.Height + 274);
+                            break;
+                        case 4:                                                 //prawo
+                            x = Random.Next(this.ClientSize.Width + 174, this.ClientSize.Width + 274);
+                            y = Random.Next(-274, this.ClientSize.Height);
+                            break;
+                    }
+                    item.EnemyLook.Left = x;
+                    item.EnemyLook.Top = y;
+                }
+            }
+            if (enemies.Count < 10)
+            {
+                howManyNeed = 10 - enemies.Count;
+                for (int i = 0; i < howManyNeed; i++) ///////////////////////////////////////////////////////////////
+                {
+                    enemies.Add(GenerateEnemy());
+                }
+            }
+        }
+
         private void RPG_Kapek_MouseClick(object sender, MouseEventArgs e)
         {
             if (itemHolding == "trap" && MovingAnimation.Enabled == true && trapsCount > 0)
@@ -524,17 +676,14 @@ namespace Nie_mam_pomysly_na_nazwe
             await Task.Delay(1000);
             countdownLbl.Text = "GO!";
             MovingAnimation.Start();
+            Spawning.Start();
             await Task.Delay(1000);
             countdownLbl.Hide();
         }
 
-        private Task countdown()
-        {
-            throw new NotImplementedException();
-        }
-
         private async void RPG_Kapek_KeyDown(object sender, KeyEventArgs e)
         {
+
             if (e.KeyCode == Keys.Left || e.KeyCode == Keys.A)
             {
                 GoingLeft = true;

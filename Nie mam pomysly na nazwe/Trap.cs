@@ -11,6 +11,11 @@ namespace Nie_mam_pomysly_na_nazwe
     {
         public PictureBox trapLook;
         public bool activated;
+
+        public Trap()
+        {
+        }
+
         public Trap(PictureBox trapLook, bool activated)
         {
             this.trapLook = trapLook;
