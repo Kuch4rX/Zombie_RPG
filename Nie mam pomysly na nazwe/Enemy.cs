@@ -15,8 +15,9 @@ namespace Nie_mam_pomysly_na_nazwe
         public bool EnemyCooldown;
         public int Speed;
         public bool Stunned;
+        public bool StunnedByWeapon;
 
-        public Enemy(Timer cooldown, int hP, PictureBox enemyLook, bool enemyCooldown, int speed, bool stunned)
+        public Enemy(Timer cooldown, int hP, PictureBox enemyLook, bool enemyCooldown, int speed, bool stunned, bool stunnedbyweapon)
         {
             Cooldown = cooldown;
             HP = hP;
@@ -24,6 +25,7 @@ namespace Nie_mam_pomysly_na_nazwe
             EnemyCooldown = enemyCooldown;
             Speed = speed;
             Stunned = stunned;
+            StunnedByWeapon = stunnedbyweapon;
         }
     }
 }

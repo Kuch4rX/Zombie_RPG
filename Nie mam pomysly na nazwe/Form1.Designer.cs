@@ -153,6 +153,7 @@ namespace Nie_mam_pomysly_na_nazwe
             // Adventurer
             // 
             this.Adventurer.BackColor = System.Drawing.Color.Transparent;
+            this.Adventurer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Adventurer.Image = global::Nie_mam_pomysly_na_nazwe.Properties.Resources.MyHoboDown;
             this.Adventurer.Location = new System.Drawing.Point(586, 307);
             this.Adventurer.Name = "Adventurer";

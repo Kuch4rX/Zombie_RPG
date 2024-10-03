@@ -31,7 +31,7 @@ namespace Nie_mam_pomysly_na_nazwe
         public RPG_Kapek()
         {
             InitializeComponent();
-            for (int i = 0; i < 10; i++) ///////////////////////////////////////////////////////////////
+            for (int i = 0; i < 10; i++) /////////////////////////////////////////////////////
             {
                 enemies.Add(GenerateEnemy());
             }
@@ -48,7 +48,6 @@ namespace Nie_mam_pomysly_na_nazwe
             DidEnemyFallInTrap();
             try
             {
-
                 await AttackAdventurer();
             }
             catch (Exception) { }
@@ -159,34 +158,37 @@ namespace Nie_mam_pomysly_na_nazwe
                 item.EnemyLook.BackColor = Color.Transparent;
                 if (!item.Stunned)
                 {
-                    if (Adventurer.Top > item.EnemyLook.Top)
-                    {
-                        item.EnemyLook.Top += item.Speed;
-                    }
-                    if (Adventurer.Top < item.EnemyLook.Top)
-                    {
-                        item.EnemyLook.Top -= item.Speed;
-                    }
-                    if (Adventurer.Left > item.EnemyLook.Left)
-                    {
-                        item.EnemyLook.Left += item.Speed;
-                        item.EnemyLook.Image = Properties.Resources.MyZombieRight;
-                    }
-                    if (Adventurer.Left < item.EnemyLook.Left)
-                    {
-                        item.EnemyLook.Left -= item.Speed;
-                        item.EnemyLook.Image = Properties.Resources.MyZombieLeft;
-                    }
-                    x = Adventurer.Left - item.EnemyLook.Left;
-                    if (x < 220 && x > -220)
+                    if (!item.StunnedByWeapon)
                     {
                         if (Adventurer.Top > item.EnemyLook.Top)
                         {
-                            item.EnemyLook.Image = Properties.Resources.MyZombieDown;
+                            item.EnemyLook.Top += item.Speed;
                         }
                         if (Adventurer.Top < item.EnemyLook.Top)
                         {
-                            item.EnemyLook.Image = Properties.Resources.MyZombieUp;
+                            item.EnemyLook.Top -= item.Speed;
+                        }
+                        if (Adventurer.Left > item.EnemyLook.Left)
+                        {
+                            item.EnemyLook.Left += item.Speed;
+                            item.EnemyLook.Image = Properties.Resources.MyZombieRight;
+                        }
+                        if (Adventurer.Left < item.EnemyLook.Left)
+                        {
+                            item.EnemyLook.Left -= item.Speed;
+                            item.EnemyLook.Image = Properties.Resources.MyZombieLeft;
+                        }
+                        x = Adventurer.Left - item.EnemyLook.Left;
+                        if (x < 215 && x > -215)
+                        {
+                            if (Adventurer.Top > item.EnemyLook.Top)
+                            {
+                                item.EnemyLook.Image = Properties.Resources.MyZombieDown;
+                            }
+                            if (Adventurer.Top < item.EnemyLook.Top)
+                            {
+                                item.EnemyLook.Image = Properties.Resources.MyZombieUp;
+                            }
                         }
                     }
                 }
@@ -209,7 +211,7 @@ namespace Nie_mam_pomysly_na_nazwe
         {
             if (GoingLeft || GoingRight || GoingUp || GoingDown)
             {
-                if (sniperCooldown != 0 && itemHolding == "sniper")
+                if(sniperCooldown != 0 && itemHolding == "sniper")
                 {
                     sniperCooldown -= 2;
                 }
@@ -232,6 +234,7 @@ namespace Nie_mam_pomysly_na_nazwe
                         item.EnemyLook.Top -= MovingSpeed;
                     }
                 }
+
                 foreach (var item in traps)
                 {
                     if (GoingLeft)
@@ -251,16 +254,6 @@ namespace Nie_mam_pomysly_na_nazwe
                         item.trapLook.Top -= MovingSpeed;
                     }
                 }
-                if (GoingLeft)
-                {
-                    Adventurer.Image = Properties.Resources.MyHoboLeft;
-
-                }
-                if (GoingRight)
-                {
-                    Adventurer.Image = Properties.Resources.MyHoboRight;
-
-                }
                 if (GoingUp)
                 {
                     Adventurer.Image = Properties.Resources.MyHoboUp;
@@ -271,22 +264,14 @@ namespace Nie_mam_pomysly_na_nazwe
                     Adventurer.Image = Properties.Resources.MyHoboDown;
 
                 }
-                if (GoingLeft && GoingUp)
-                {
-                    Adventurer.Image = Properties.Resources.MyHoboLeft;
-                }
-                if (GoingRight && GoingDown)
-                {
-                    Adventurer.Image = Properties.Resources.MyHoboRight;
-                }
-                if (GoingRight && GoingUp)
-                {
-                    Adventurer.Image = Properties.Resources.MyHoboRight;
-                }
-                if (GoingLeft && GoingDown)
+                if (GoingLeft)
                 {
                     Adventurer.Image = Properties.Resources.MyHoboLeft;
 
+                }
+                if (GoingRight)
+                {
+                    Adventurer.Image = Properties.Resources.MyHoboRight;
                 }
             }
             else if (sniperCooldown != 100 && itemHolding == "sniper")
@@ -297,7 +282,7 @@ namespace Nie_mam_pomysly_na_nazwe
         }
         private Enemy GenerateEnemy() ///////////////////////////////////////////////////////////////////////
         {
-            Enemy enemy = new Enemy(new Timer(), 2, GeneratePictureBox(), false, Random.Next(1, 6), false);
+            Enemy enemy = new Enemy(new Timer(), 2, GeneratePictureBox(), false, Random.Next(1, 6), false, false);
             return enemy;
         }
 
@@ -351,101 +336,72 @@ namespace Nie_mam_pomysly_na_nazwe
 
         private async void Enemy_MouseClick(object sender, MouseEventArgs e) /////////////////////////////////////////////////////////////
         {
-
-            PictureBox enemy = (PictureBox)sender;
-            Enemy item = FindEnemyItem(enemy);
-            if (enemy.Cursor == Cursors.Cross && restartBtn.Enabled == false && itemHolding == "knife")
+            if (!GameOver)
             {
-                item1PictureBox.Image = Properties.Resources.Katana_Blood;
-                if (!item.Stunned)
+                PictureBox enemy = (PictureBox)sender;
+                Enemy item = FindEnemyItem(enemy);
+                if (enemy.Cursor == Cursors.Cross && restartBtn.Enabled == false && itemHolding == "knife")
                 {
-                    if (Adventurer.Top > enemy.Top)
+                    item1PictureBox.Image = Properties.Resources.Katana_Blood;
+                    if (!item.Stunned)
                     {
-                        item.Stunned = true;
-                        for (int i = 0; i < 10; i++)
+                        item.StunnedByWeapon = true;
+                        if (Adventurer.Top > enemy.Top)
                         {
-                            await Task.Delay(2);
-                            enemy.Top -= 4;
+                            for (int i = 0; i < 10; i++)
+                            {
+                                await Task.Delay(2);
+                                enemy.Top -= 4;
+                            }
                         }
-                        item.Stunned = false;
-                    }
-                    if (Adventurer.Top < enemy.Top)
-                    {
-                        item.Stunned = true;
-                        for (int i = 0; i < 10; i++)
+                        if (Adventurer.Top < enemy.Top)
                         {
-                            await Task.Delay(2);
-                            enemy.Top += 4;                         //Mordi spierdalaj
+                            for (int i = 0; i < 10; i++)
+                            {
+                                await Task.Delay(2);
+                                enemy.Top += 4;                         //Mordi spierdalaj
+                            }
                         }
-                        item.Stunned = false;
-                    }
-                    if (Adventurer.Left > enemy.Left)
-                    {
-                        item.Stunned = true;
-                        for (int i = 0; i < 10; i++)
+                        if (Adventurer.Left > enemy.Left)
                         {
-                            await Task.Delay(2);
-                            enemy.Left -= 4;
+                            for (int i = 0; i < 10; i++)
+                            {
+                                await Task.Delay(2);
+                                enemy.Left -= 4;
+                            }
                         }
-                        item.Stunned = false;
-                    }
-                    if (Adventurer.Left < enemy.Left)
-                    {
-                        item.Stunned = true;
-                        for (int i = 0; i < 10; i++)
+                        if (Adventurer.Left < enemy.Left)
                         {
-                            await Task.Delay(2);
-                            enemy.Left += 4;
+                            for (int i = 0; i < 10; i++)
+                            {
+                                await Task.Delay(2);
+                                enemy.Left += 4;
+                            }
                         }
-                        item.Stunned = false;
+                        item.StunnedByWeapon = false;
                     }
-                }
 
 
-                if (item != null)
-                {
-                    item.HP--;
-                    if (item.HP == 1)
+                    if (item != null)
                     {
-                        item.EnemyLook.BackColor = Color.Yellow;
-                    }
-                    if (item.HP == 0)
-                    {
-                        this.Controls.Remove(enemy);
-                        enemies.Remove(item);
+                        item.HP--;
+                        if (item.HP == 1)
+                        {
+                            item.EnemyLook.BackColor = Color.Yellow;
+                        }
+                        if (item.HP == 0)
+                        {
+                            this.Controls.Remove(enemy);
+                            enemies.Remove(item);
+                        }
                     }
                 }
-            }
-            if (itemHolding == "sniper" && sniperAmmo > 0)
-            {
-                int sniperHitChance = -1;
-                sniperAmmo--;
-                sniperAmmoLbl.Text = sniperAmmo.ToString();
-                if (sniperCooldown == 100)
+                if (itemHolding == "sniper" && sniperAmmo > 0)
                 {
-                    didYouHitLbl.Visible = true;
-                    didYouHitLbl.ForeColor = Color.Green;
-                    didYouHitLbl.Text = "ENEMY HAS BEEN SHOT";
-                    await SniperHit(enemy, item);
-                    await Task.Delay(1500);
-                    didYouHitLbl.Visible = false;
-
-                }
-                else
-                {
-                    if (sniperCooldown > 75)
-                    {
-                        sniperHitChance = Random.Next(0, 2);
-                    }
-                    else if (sniperCooldown >= 50)
-                    {
-                        sniperHitChance = Random.Next(0, 3);
-                    }
-                    else if (sniperCooldown > 25)
-                    {
-                        sniperHitChance = Random.Next(0, 4);
-                    }
-                    if (sniperHitChance == 0)
+                    int sniperHitChance = -1;
+                    sniperAmmo--;
+                    sniperAmmoLbl.Text = sniperAmmo.ToString();
+                    if (sniperCooldown == 100)
                     {
                         didYouHitLbl.Visible = true;
                         didYouHitLbl.ForeColor = Color.Green;
@@ -456,13 +412,41 @@ namespace Nie_mam_pomysly_na_nazwe
                     }
                     else
                     {
-                        didYouHitLbl.Visible = true;
-                        didYouHitLbl.ForeColor = Color.Red;
-                        didYouHitLbl.Text = "YOU'VE MISSED";
-                        await Task.Delay(1500);
-                        didYouHitLbl.Visible = false;
+                        if (sniperCooldown > 75)
+                        {
+                            sniperHitChance = Random.Next(0, 2);
+                        }
+                        else if (sniperCooldown >= 50)
+                        {
+                            sniperHitChance = Random.Next(0, 3);
+                        }
+                        else if (sniperCooldown > 25)
+                        {
+                            sniperHitChance = Random.Next(0, 4);
+                        }
+                        if (sniperHitChance == 0)
+                        {
+                            didYouHitLbl.Visible = true;
+                            didYouHitLbl.ForeColor = Color.Green;
+                            didYouHitLbl.Text = "ENEMY HAS BEEN SHOT";
+                            await SniperHit(enemy, item);
+                            await Task.Delay(1500);
+                            didYouHitLbl.Visible = false;
+                        }
+                        else
+                        {
+                            didYouHitLbl.Visible = true;
+                            didYouHitLbl.ForeColor = Color.Red;
+                            didYouHitLbl.Text = "YOU'VE MISSED";
+                            await Task.Delay(1500);
+                            didYouHitLbl.Visible = false;
+
+                        }
                     }
+                    sniperCooldown = 0;
+                    sniperCooldownPrgsbar.Value = sniperCooldown;
                 }
+
             }
             else if (itemHolding == "sniper")
             {
@@ -478,7 +462,6 @@ namespace Nie_mam_pomysly_na_nazwe
                 await Task.Delay(300);
                 noAmmoLbl.Visible = false;
             }
-            sniperCooldown = 0;
         }
 
         private async Task SniperHit(PictureBox enemy, Enemy item)
@@ -486,6 +469,7 @@ namespace Nie_mam_pomysly_na_nazwe
             item.EnemyLook.BackColor = Color.Red;
             if (!item.Stunned)
             {
+                item.StunnedByWeapon = true;
                 if (Adventurer.Top > enemy.Top)
                 {
                     for (int i = 0; i < 10; i++)
@@ -518,6 +502,7 @@ namespace Nie_mam_pomysly_na_nazwe
                         enemy.Left += 20;
                     }
                 }
+                item.StunnedByWeapon = true;
             }
             this.Controls.Remove(enemy);
             enemies.Remove(item);
